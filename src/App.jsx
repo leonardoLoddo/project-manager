@@ -8,8 +8,33 @@ function App() {
   const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined, //undefined: nessun progetto selezionato - null: creazione progetto - idprogetto: mostra progetto
     projects: [],
+    tasks: [],
   });
   const projectIdCounter = useRef(0); //contatore per generare id univoci
+  const taskIdCounter = useRef(0);
+
+  function handleAddTask(text) {
+    setProjectsState((prevState) => {
+      const taskId = taskIdCounter.current++; //assegno l'id basandomi su taskIdCurrent e lo incremento
+      const newTask = {
+        text: text,
+        projectId: prevState.selectedProjectId,
+        id: taskId,
+      };
+      return {
+        ...prevState,
+        tasks: [newTask, ...prevState.tasks],
+      };
+    });
+  }
+  function handleDeleteTask(id) {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter((task) => task.id !== id),
+      };
+    });
+  }
 
   function handleSelectProject(id) {
     setProjectsState((prevState) => {
@@ -70,7 +95,15 @@ function App() {
     (project) => project.id === projectsState.selectedProjectId //trovo il progetto selezionato
   );
   let content = (
-    <SelectedProject onDelete={handleDeleteProject} project={selectedProject} />
+    <SelectedProject
+      onAddTask={handleAddTask}
+      onDeleteTask={handleDeleteTask}
+      onDelete={handleDeleteProject}
+      project={selectedProject}
+      tasks={projectsState.tasks.filter(
+        (task) => task.projectId === projectsState.selectedProjectId //mi assicuro di passare solo task inerenti al progetto
+      )}
+    />
   ); //mostro a schermo il progetto selezionato
   if (projectsState.selectedProjectId === null) {
     content = (
@@ -85,6 +118,7 @@ function App() {
         onStartAddProject={handleStartAddProject}
         projects={projectsState.projects}
         onSelectProject={handleSelectProject}
+        selectedProjectId={selectedProject.id}
       />
       {content}
     </main>
