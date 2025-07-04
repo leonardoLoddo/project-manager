@@ -1,8 +1,11 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import Input from "./Input";
 import Modal from "./Modal";
+import { ProjectContext } from "../store/projects-context";
 
-export default function NewProject({ onAdd, onCancel }) {
+export default function NewProject() {
+  const { addProject, cancelAddProject } = useContext(ProjectContext);
+
   const title = useRef();
   const description = useRef();
   const dueDate = useRef();
@@ -23,7 +26,7 @@ export default function NewProject({ onAdd, onCancel }) {
       return; //esco dalla funzione e non eseguo il codice successivo
     }
     //creo un oggetto con i valori raccolti e lo passo come parametro della funzione onAdd
-    onAdd({
+    addProject({
       title: enteredTitle,
       description: enteredDescription,
       dueDate: enteredDueDate,
@@ -47,7 +50,7 @@ export default function NewProject({ onAdd, onCancel }) {
         <menu className="flex justify-end items-center gap-4 my-4">
           <li>
             <button
-              onClick={onCancel}
+              onClick={cancelAddProject}
               className="text-red-500 hover:text-red-800"
             >
               Cancella

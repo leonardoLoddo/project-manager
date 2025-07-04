@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ProjectContext } from "../store/projects-context";
 
-export default function NewTask({ onAdd }) {
+export default function NewTask() {
+  const { addTask } = useContext(ProjectContext);
   const [enteredTask, setEnteredTask] = useState("");
   function handleChange(event) {
     setEnteredTask(event.target.value);
@@ -9,7 +11,7 @@ export default function NewTask({ onAdd }) {
     if (enteredTask.trim() === "") {
       return; //se la task é vuota non viene inserita
     }
-    onAdd(enteredTask);
+    addTask(enteredTask);
     setEnteredTask("");
   }
   return (

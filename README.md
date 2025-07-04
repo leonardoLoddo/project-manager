@@ -12,6 +12,9 @@ L’utente può creare ed eliminare progetti, e per ciascun progetto gestire un 
 - useState (per la gestione dello stato)
 - useRef (per tracciare riferimenti senza forzare re-render)
 - React Portal (per un rendering più flessibile dei componenti)
+- useReducer (gestione task e progetti)
+- React Context API (per condividere in modo centralizzato lo stato dei progetti tra i componenti senza prop drilling)
+- localStorage (persistenza client-side, in modo da mantenere i dati tra i refresh della pagina)
 
 ## Installazione
 
