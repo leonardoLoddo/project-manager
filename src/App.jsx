@@ -1,17 +1,25 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 import ProjectsSidebar from "./components/ProjectsSidebar";
 import SelectedProject from "./components/SelectedProject";
 
 function App() {
-  const [projectsState, setProjectsState] = useState({
-    selectedProjectId: undefined, //undefined: nessun progetto selezionato - null: creazione progetto - idprogetto: mostra progetto
-    projects: [],
-    tasks: [],
-  });
+  const storedProjects = JSON.parse(localStorage.getItem("userProjects"));
+  const [projectsState, setProjectsState] = useState(
+    storedProjects || {
+      selectedProjectId: undefined, //undefined: nessun progetto selezionato - null: creazione progetto - idprogetto: mostra progetto
+      projects: [],
+      tasks: [],
+    }
+  );
   const projectIdCounter = useRef(0); //contatore per generare id univoci
   const taskIdCounter = useRef(0);
+
+  // salva sempre nel localStorage quando cambia projectsState
+  useEffect(() => {
+    localStorage.setItem("userProjects", JSON.stringify(projectsState));
+  }, [projectsState]);
 
   function handleAddTask(text) {
     setProjectsState((prevState) => {
