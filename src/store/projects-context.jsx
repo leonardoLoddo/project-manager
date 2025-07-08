@@ -76,6 +76,8 @@ function projectsReducer(state, action) {
       ),
     };
   }
+
+  return state;
 }
 
 export default function ProjectsContextProvider({ children }) {

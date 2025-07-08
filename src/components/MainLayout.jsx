@@ -28,7 +28,7 @@ export default function MainLayout() {
   }
 
   return (
-    <main className="flex gap-8 my-8 h-screen">
+    <main className="flex gap-8 my-[5vh] min-h-[90vh]">
       <ProjectsSidebar selectedProjectId={projects.selectedProjectId} />
       {content}
     </main>
