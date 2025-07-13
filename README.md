@@ -21,7 +21,7 @@ L’utente può creare ed eliminare progetti, e per ciascun progetto gestire un 
 Per eseguire il progetto in locale:
 
 ```bash
-git clone https://github.com/tuo-username/project-manager.git
+git clone https://github.com/leonardoLoddo/project-manager
 cd project-manager
 npm install
 npm run dev
